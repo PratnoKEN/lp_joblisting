@@ -52,6 +52,12 @@ RegisterNetEvent('lp_joblisting:open', function()
 							job   = 'unemployed'
 						}
 					}
+					--[[['example jobs'] = { -- This For Label Jobs
+						event = 'lp_joblisting:requestjob',
+						args = {
+							job   = 'examplejob' -- this for name jobs
+						}
+					}]]
 				}
 			})
 			lib.showContext('job_center')
