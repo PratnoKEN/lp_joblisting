@@ -1,3 +1,1 @@
-USE `es_extended`;
-
-ALTER TABLE jobs add whitelisted BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE jobs DROP IF EXISTS whitelisted;
