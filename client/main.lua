@@ -3,14 +3,14 @@ RegisterNetEvent('jobcenter:ShowJobListingMenu', function()
 		local elements = {}
 
 		for k,v in pairs(jobs) do
-			table.insert(elements, {
+			elements[#elements+1] = {
 				title   = k,
 				header = v.label,
 				event = 'jobcenter:list',
 				args = {
 					job = k
 				}
-			})
+			}
 		end
 
 		lib.registerContext({
@@ -25,32 +25,34 @@ end)
 
 RegisterNetEvent('jobcenter:list', function(data) 
 	TriggerServerEvent('lp_joblisting:setJob', data.job)
-	ESX.ShowNotification(_U('new_job'))
+	lib.notify({
+		title = 'Success apply job',
+		description = _U('new_job'),
+		type = 'success'
+	})
 end)
 
 if Config.target then
-	exports.qtarget:AddBoxZone("Jobcentertarget", vector3(-265.08, -964.1, 30.3), 1.0, 1.0, {
-		name="Jobcentertarget",
-		heading=19.8425,
-		debugPoly=false,
-		minZ=29.3,
-		maxZ=33.3,
-		}, {
-			options = {
-				{
-					event = "jobcenter:ShowJobListingMenu",
-					icon = "fas fa-sign-in-alt",
-					label = "Job Center",
-				},
+	exports.ox_target:addBoxZone({
+		coords = vec3(-1082.123047, -247.516479, 37.7554371),
+		size = vec3(1, 1, 1),
+		rotation = 19.8425,
+		debug = true,
+		options = {
+			{
+				name = 'Jobcentertarget',
+				event = "jobcenter:ShowJobListingMenu",
+				icon = "fas fa-sign-in-alt",
+				label = "Job Center",
 			},
-			distance = 3.5
+		}
 	})
 else
 	CreateThread(function()
 		while true do
 			local Sleep = 1500
 
-			local coords = GetEntityCoords(PlayerPedId())
+			local coords = GetEntityCoords(cache.ped)
 
 			for i=1, #Config.Zones, 1 do
 				local distance = #(coords - Config.Zones[i])
@@ -70,7 +72,7 @@ else
 		Wait(Sleep)
 		end
 	end)
-end	
+end
 
 -- Create blips
 CreateThread(function()
