@@ -9,24 +9,11 @@ function getJobs()
 	return availableJobs
 end
 
-ESX.RegisterServerCallback('lp_joblisting:getJobsList', function(source, cb)
+lib.callback.register('lp_joblisting:getJobsList', function(source)
 	local jobs = getJobs()
-	cb(jobs)
+	
+	return jobs
 end)
-
-function IsNearCentre(player)
-	local Ped = GetPlayerPed(player)
-	local PedCoords = GetEntityCoords(Ped)
-	local Zones = Config.Zones
-
-	for i=1, #Config.Zones, 1 do
-		local distance = #(PedCoords - Config.Zones[i])
-
-		if distance < Config.DrawDistance then
-			return true
-		end
-	end
-end
 
 RegisterServerEvent('lp_joblisting:setJob')
 AddEventHandler('lp_joblisting:setJob', function(job)
@@ -34,7 +21,7 @@ AddEventHandler('lp_joblisting:setJob', function(job)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local jobs = getJobs()
 
-	if xPlayer and IsNearCentre(source) then
+	if xPlayer then
 		if jobs[job] then
 			xPlayer.setJob(job, 0)
 		end
