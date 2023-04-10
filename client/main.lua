@@ -1,5 +1,5 @@
 RegisterNetEvent('jobcenter:ShowJobListingMenu', function() 
-	lib.callback('lp_joblisting:getJobsList', 0, function(jobs)
+	lib.callback('lp_joblisting:getJobsList', source, function(jobs)
 		local elements = {}
 
 		for k,v in pairs(jobs) do
