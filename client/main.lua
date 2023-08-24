@@ -33,7 +33,7 @@ RegisterNetEvent('jobcenter:list', function(data)
 	})
 end)
 
-JobCenterPoints = function()
+function JobCenterPoints()
 	for k,v in pairs(Config.Zones) do
 		local coords = v.pointcoords
 		local point = lib.points.new(coords, 2)
@@ -57,7 +57,7 @@ JobCenterPoints = function()
 end
 
 -- Create blips
-CreateBlips = function()
+function CreateBlips()
 	for k,v in pairs(Config.Zones) do
 		local blip = AddBlipForCoord(v.pointcoords.x,v.pointcoords.y,v.pointcoords.z)
 		SetBlipSprite(blip,407)
