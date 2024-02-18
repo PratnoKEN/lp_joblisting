@@ -15,7 +15,7 @@ lib.callback.register('lp_joblisting:getJobsList', function(source)
 	return jobs
 end)
 
-RegisterServerEvent('lp_joblisting:setJob')
+RegisterNetEvent('lp_joblisting:setJob')
 AddEventHandler('lp_joblisting:setJob', function(job)
 	local source = source
 	local xPlayer = ESX.GetPlayerFromId(source)
